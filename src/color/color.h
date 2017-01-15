@@ -38,28 +38,28 @@ public:
 		return result;
 	}
 
-	Color(float r, float g, float b)
+	Color(float rVal, float gVal, float bVal)
 	{
-		values[0] = r;
-		values[1] = g;
-		values[2] = b;
-		values[3] = 1.0f;
+		values[r] = rVal;
+		values[g] = gVal;
+		values[b] = bVal;
+		values[a] = 1.0f;
 	}
 
-	Color(float r, float g, float b, float a)
+	Color(float rVal, float gVal, float bVal, float aVal)
 	{
-		values[0] = r;
-		values[1] = g;
-		values[2] = b;
-		values[3] = a;
+		values[r] = rVal;
+		values[g] = gVal;
+		values[b] = bVal;
+		values[a] = aVal;
 	}
 
-	void SetValues(float r, float g, float b, float a)
+	void SetValues(float rVal, float gVal, float bVal, float aVal)
 	{
-		values[0] = r;
-		values[1] = g;
-		values[2] = b;
-		values[3] = a;
+		values[r] = rVal;
+		values[g] = gVal;
+		values[b] = bVal;
+		values[a] = aVal;
 	}
 
 	void SetValues(float t)
@@ -74,17 +74,17 @@ public:
 
 	static void Clamp(Color& color, float minValue, float maxValue)
 	{
-		if (color.values[0] < minValue) color.values[0] = minValue;
-		if (color.values[0] > maxValue) color.values[0] = maxValue;
+		if (color.values[r] < minValue) color.values[r] = minValue;
+		if (color.values[r] > maxValue) color.values[r] = maxValue;
 
-		if (color.values[1] < minValue) color.values[1] = minValue;
-		if (color.values[1] > maxValue) color.values[1] = maxValue;
+		if (color.values[g] < minValue) color.values[g] = minValue;
+		if (color.values[g] > maxValue) color.values[g] = maxValue;
 
-		if (color.values[2] < minValue) color.values[2] = minValue;
-		if (color.values[2] > maxValue) color.values[2] = maxValue;
+		if (color.values[b] < minValue) color.values[b] = minValue;
+		if (color.values[b] > maxValue) color.values[b] = maxValue;
 
-		if (color.values[3] < minValue) color.values[3] = minValue;
-		if (color.values[3] > maxValue) color.values[3] = maxValue;
+		if (color.values[a] < minValue) color.values[a] = minValue;
+		if (color.values[a] > maxValue) color.values[a] = maxValue;
 	}
 
 	static Color Lerp(const Color& lhs, const Color& rhs, const float& t)
