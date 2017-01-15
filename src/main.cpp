@@ -27,7 +27,7 @@ void kernel(	const unsigned int& x,
 
 	float l = uv.Magnitude();
 
-	float t = float(pow(abs(1.0f / (((uv.X() * 300.0) + sin(uv.Y() * 5.0f)*30.0f))), 0.7f));
+	float t = float(pow(abs(1.0f / (((uv.X() * 300.0) + sin(uv.Y() * 5.0f)*50.0f))), 0.7f));
 	t = clamp01(t);
 	outputColor.SetValues(t * 2.0f, t * 4.0f, t * 8.0f, 1.0f);
 	Color::Clamp(outputColor, 0.0f, 1.0f);
@@ -54,6 +54,8 @@ int main(int argc, char* argv)
 	cout << "STATS\n";
 	cout << "Render Time: " << elapsedTimeInMS << " ms\n";
 	cout << "FPS: " << 1000.0f / elapsedTimeInMS << "\n";
+
+	ShellExecute(NULL, "open", "test2.ppm", NULL, NULL, SW_SHOW);
 
 	return 0;
 }
