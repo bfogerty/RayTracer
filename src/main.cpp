@@ -16,18 +16,11 @@ void kernel(	const unsigned int& x,
 				const unsigned int& height, 
 				Color& outputColor )
 {
-	float aspectRatio = (float)width / height;
+	static float aspectRatio = (float)width / height;
 	Vec2 uv = Vec2(float(x) / width, float(y) / height) * 2.0f - 1.0f;
 	uv.X() *= aspectRatio;
 
-	if (abs(uv.X()) < 0.0000f)
-	{
-		uv.X() = 0.0000f;
-	}
-
-	float l = uv.Magnitude();
-
-	float t = float(pow(abs(1.0f / (((uv.X() * 300.0) + sin(uv.Y() * 5.0f)*50.0f))), 0.7f));
+	float t = float(pow(abs(1.0f / (((uv.X() * 300.0) + sin(uv.Y() * 5.0f)*50.0f))), 0.75f));
 	t = clamp01(t);
 	outputColor.SetValues(t * 2.0f, t * 4.0f, t * 8.0f, 1.0f);
 	Color::Clamp(outputColor, 0.0f, 1.0f);
