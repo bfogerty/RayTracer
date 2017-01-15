@@ -17,7 +17,7 @@ public:
 
 	Vec2()
 	{
-		memset(values, 0.0f, ValueSize);
+		memset(values, 0, ValueSize);
 	}
 
 	Vec2(float xVal, float yVal)

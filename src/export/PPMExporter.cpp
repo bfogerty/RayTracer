@@ -21,9 +21,9 @@ void PPMExporter::Export(const char* filename, int width, int height, int bytesP
 			int greenIndex = (y*width*bytesPerPixel) + (x*bytesPerPixel + 1);
 			int blueIndex = (y*width*bytesPerPixel) + (x*bytesPerPixel + 2);
 
-			int red = round(pixels[redIndex] * 255);
-			int green = round(pixels[greenIndex] * 255);
-			int blue = round(pixels[blueIndex] * 255);
+			int red = int(round(pixels[redIndex] * 255));
+			int green = int(round(pixels[greenIndex] * 255));
+			int blue = int(round(pixels[blueIndex] * 255));
 
 			fileOut << red << " " << green << " " << blue << " ";
 		}

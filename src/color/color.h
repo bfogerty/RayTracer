@@ -1,6 +1,7 @@
 #ifndef __COLOR__
 #define __COLOR__
 #include <memory.h>
+#include <algorithm>
 
 class Color
 {
@@ -13,7 +14,7 @@ public:
 
 	Color(float t)
 	{
-		memset(values, t, sizeof(float) * 4);
+		std::fill(values, values + 4, t);
 	}
 
 	Color(const Color& other)
@@ -55,7 +56,7 @@ public:
 
 	void SetValues(float t)
 	{
-		memset(values, t, sizeof(float) * 4);
+		std::fill(values, values + 4, t);
 	}
 
 	const float* GetValues()

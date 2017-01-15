@@ -47,7 +47,7 @@ void kernel(	const unsigned int& x,
 
 	float l = uv.Magnitude();
 
-	float t = pow(abs(1.0f / (uv.X() * 50.0)), 0.5);
+	float t = float(pow(abs(1.0f / (uv.X() * 50.0)), 0.5));
 	t = clamp01(t);
 	outputColor.SetValues(t * 2.0f, t * 4.0f, t * 8.0f, 1.0f);
 	Color::Clamp(outputColor, 0.0f, 1.0f);
@@ -63,7 +63,7 @@ void Scene_Thread(int startingX, int startingY, int endingX, int endingY, int wi
 			kernel(x, y, width, height, outputColor);
 
 			int redIndex = (y*width*bytesPerPixel) + (x*bytesPerPixel + 0);
-			memcpy(&pixels[redIndex], outputColor.GetValues(), sizeof(float) * 3.0f);
+			memcpy(&pixels[redIndex], outputColor.GetValues(), sizeof(float) * 3);
 		}
 	}
 
@@ -116,7 +116,7 @@ void Scene_NoThreads(int width, int height, int bytesPerPixel, float* pixels)
 
 			float l = sqrt(uvx*uvx + uvy*uvy);
 
-			float t = pow(abs( 1.0f / (l * 50.0)), 0.5);
+			float t = float(pow(abs( 1.0f / (l * 50.0)), 0.5));
 			t = clamp01(t);
 
 			pixels[redIndex]	= clamp01(t * 2.0f);

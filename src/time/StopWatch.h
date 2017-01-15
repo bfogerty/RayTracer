@@ -17,7 +17,7 @@ public:
 	inline float Stop()
 	{
 		QueryPerformanceCounter(&endCounts);
-		float delta = endCounts.QuadPart - beginCounts.QuadPart;
+		float delta = float(endCounts.QuadPart - beginCounts.QuadPart);
 		float elapsedTimeInSeconds = delta * invCountsPerSecond;
 		float elapsedTimeInMS = elapsedTimeInSeconds * 1000.0f;
 
