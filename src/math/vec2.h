@@ -152,7 +152,7 @@ public:
 		return values[y];
 	}
 
-	static float Dot(Vec2 lhs, Vec2 rhs)
+	static float Dot(const Vec2& lhs, const Vec2& rhs)
 	{
 		float result =	lhs.values[x] * rhs.values[x] +
 						lhs.values[y] * rhs.values[y];
@@ -160,14 +160,14 @@ public:
 		return result;
 	}
 
-	static Vec2 Project(Vec2 a, Vec2 b)
+	static Vec2 Project(const Vec2& a, Vec2& b)
 	{
 		Vec2 result = b * (Vec2::Dot(a,b) * b.InverseMagnitudeSquared());
 
 		return result;
 	}
 
-	static float Length(Vec2 lhs, Vec2 rhs)
+	static float Length(const Vec2& lhs, const Vec2& rhs)
 	{
 		float result = sqrt(
 			lhs.values[x] * rhs.values[x] +
@@ -177,6 +177,15 @@ public:
 		return result;
 	}
 
+	static Vec2 Lerp(const Vec2& lhs, const Vec2& rhs, const float& t)
+	{
+		float OneMinusT = 1.0f - t;
+		Vec2 result;
+		result.values[x] = (OneMinusT * lhs.values[x]) + (t * rhs.values[x]);
+		result.values[y] = (OneMinusT * lhs.values[y]) + (t * rhs.values[y]);
+
+		return result;
+	}
 
 private:
 	float values[2];

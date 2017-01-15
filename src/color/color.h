@@ -7,6 +7,14 @@ class Color
 {
 public:
 
+	enum RGBA
+	{
+		r = 0,
+		g = 1,
+		b = 2,
+		a = 3,
+	};
+
 	Color()
 	{
 		memset(values, 0, sizeof(unsigned int) * 4);
@@ -77,6 +85,18 @@ public:
 
 		if (color.values[3] < minValue) color.values[3] = minValue;
 		if (color.values[3] > maxValue) color.values[3] = maxValue;
+	}
+
+	static Color Lerp(const Color& lhs, const Color& rhs, const float& t)
+	{
+		float OneMinusT = 1.0f - t;
+		Color result;
+		result.values[r] = (OneMinusT * lhs.values[r]) + (t * rhs.values[r]);
+		result.values[g] = (OneMinusT * lhs.values[g]) + (t * rhs.values[g]);
+		result.values[b] = (OneMinusT * lhs.values[b]) + (t * rhs.values[b]);
+		result.values[a] = (OneMinusT * lhs.values[a]) + (t * rhs.values[a]);
+
+		return result;
 	}
 
 private:

@@ -134,7 +134,7 @@ public:
 		return values;
 	}
 
-	static float Dot(Vec3 lhs, Vec3 rhs)
+	static float Dot(const Vec3& lhs, const Vec3& rhs)
 	{
 		float result =	lhs.values[x] * rhs.values[x] +
 						lhs.values[y] * rhs.values[y] +
@@ -143,7 +143,7 @@ public:
 		return result;
 	}
 
-	static Vec3 Cross(Vec3 lhs, Vec3 rhs)
+	static Vec3 Cross(const Vec3& lhs, const Vec3& rhs)
 	{
 		Vec3 result;
 
@@ -154,20 +154,31 @@ public:
 		return result;
 	}
 
-	static Vec3 Project(Vec3 a, Vec3 b)
+	static Vec3 Project(const Vec3& a, const Vec3& b)
 	{
 		Vec3 result = b * (Vec3::Dot(a,b) * b.InverseMagnitudeSquared());
 
 		return result;
 	}
 
-	static float Length(Vec3 lhs, Vec3 rhs)
+	static float Length(const Vec3& lhs, const Vec3& rhs)
 	{
 		float result = sqrt(
 			lhs.values[x] * rhs.values[x] +
 			lhs.values[y] * rhs.values[y] +
 			lhs.values[z] * rhs.values[z]
 			);
+
+		return result;
+	}
+
+	static Vec3 Lerp(const Vec3& lhs, const Vec3& rhs, const float& t)
+	{
+		float OneMinusT = 1.0f - t;
+		Vec3 result;
+		result.values[x] = (OneMinusT * lhs.values[x]) + (t * rhs.values[x]);
+		result.values[y] = (OneMinusT * lhs.values[y]) + (t * rhs.values[y]);
+		result.values[z] = (OneMinusT * lhs.values[z]) + (t * rhs.values[z]);
 
 		return result;
 	}
