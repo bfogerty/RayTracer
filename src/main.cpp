@@ -8,6 +8,8 @@
 #include "color/color.h"
 #include "time/StopWatch.h"
 #include "export/PPMExporter.h"
+#include "filter/Python/PythonFilter.h"
+
 using namespace std;
 
 void kernel(	const unsigned int& x, 
@@ -33,7 +35,10 @@ int main(int argc, char* argv)
 	const int width = 320;
 	const int height = 240;
 	const int bytesPerPixel = 3;
-	
+
+	PythonFilter pythonFilter;
+	pythonFilter.Initialize();
+
 	Renderer renderer(kernel, width, height, bytesPerPixel);
 
 	StopWatch timer;
@@ -48,7 +53,7 @@ int main(int argc, char* argv)
 	cout << "Render Time: " << elapsedTimeInMS << " ms\n";
 	cout << "FPS: " << 1000.0f / elapsedTimeInMS << "\n";
 
-	ShellExecute(NULL, "open", "test2.ppm", NULL, NULL, SW_SHOW);
+	//ShellExecute(NULL, "open", "test2.ppm", NULL, NULL, SW_SHOW);
 
 	return 0;
 }
