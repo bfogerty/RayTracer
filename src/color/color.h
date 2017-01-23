@@ -62,6 +62,11 @@ public:
 		values[a] = aVal;
 	}
 
+	void SetValues(const float inputValues[4])
+	{
+		memcpy(values, inputValues, sizeof(float) * 4);
+	}
+
 	void SetValues(float t)
 	{
 		std::fill(values, values + 4, t);

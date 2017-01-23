@@ -32,14 +32,13 @@ int main(int argc, char* argv)
 {
 	cout << "-- Ray Tracer Begin\n";
 
-	const int width = 320;
-	const int height = 240;
-	const int bytesPerPixel = 3;
+	const int width = 1080;
+	const int height = 720;
+	const int bytesPerPixel = 4;
+
 
 	PythonFilter pythonFilter;
-	pythonFilter.Initialize();
-
-	Renderer renderer(kernel, width, height, bytesPerPixel);
+	Renderer renderer(&pythonFilter, width, height, bytesPerPixel);
 
 	StopWatch timer;
 	timer.Start();
