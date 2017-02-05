@@ -52,7 +52,7 @@ int main(int argc, char* argv)
 	cout << "Render Time: " << elapsedTimeInMS << " ms\n";
 	cout << "FPS: " << 1000.0f / elapsedTimeInMS << "\n";
 
-	//ShellExecute(NULL, "open", "test2.ppm", NULL, NULL, SW_SHOW);
+	ShellExecute(NULL, "open", "test2.ppm", NULL, NULL, SW_SHOW);
 
 	return 0;
 }

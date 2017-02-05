@@ -9,17 +9,23 @@ class PythonFilter : public SoftwareFilter
 {
 public:
 	void Initialize();
+
+	void Render(float *pixels, int width, int height, int bytesPerPixel);
+
 	void DoFilter(	const unsigned int& x, 
 					const unsigned int& y, 
 					const unsigned int& width, 
 					const unsigned int& height, 
-					Color& outputColor);
+					Color& outputColor );
 
 private:
+
+	void CreateMainRenderMethod();
+
 	PyObject* m_ModuleName;
 	PyObject* m_PluginModule;
 	PyObject* m_FilterFunc;
-
+	PyObject* m_RenderFunc;
 };
 
 #endif

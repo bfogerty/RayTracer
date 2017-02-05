@@ -1,5 +1,6 @@
 #include "renderer.h"
 #include <thread>
+#include <external/python/Python.h>
 
 Renderer::Renderer(SoftwareFilter* filter, int width, int height, int bytesPerPixel) 
 	: m_Filter(filter)
@@ -32,9 +33,19 @@ void Render_Thread(SoftwareFilter* filter, int* jobsCompleted, int startingX, in
 
 void Renderer::Render()
 {
-	int jobsCompleted = 0;
-	Render_Thread(m_Filter, &jobsCompleted, 0, 0, m_Width, m_Height, m_Width, m_Height, m_BytesPerPixel, m_Pixels);
+	if (m_Filter == nullptr)
+	{
+		return;
+	}
+
+	m_Filter->Render(m_Pixels, m_Width, m_Height, m_BytesPerPixel);
 }
+
+//void Renderer::Render()
+//{
+//	int jobsCompleted = 0;
+//	Render_Thread(m_Filter, &jobsCompleted, 0, 0, m_Width, m_Height, m_Width, m_Height, m_BytesPerPixel, m_Pixels);
+//}
 
 //void Renderer::Render()
 //{

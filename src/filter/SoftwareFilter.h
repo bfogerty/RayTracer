@@ -6,6 +6,9 @@ class SoftwareFilter
 {
 public:
 	virtual void Initialize() = 0;
+
+	virtual void Render(float *pixels, int width, int height, int bytesPerPixel) = 0;
+
 	virtual void DoFilter(const unsigned int& x,
 		const unsigned int& y,
 		const unsigned int& width,
