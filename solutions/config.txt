@@ -5,3 +5,5 @@ FilterScript = Filter.py
 OutputDirectory = "C:\Users\bfogerty\Documents\development\RayTracer\RayTracer\output"
 OutputFile = test.ppm
 Exporter = ppm
+ImageWidth = 1080
+ImageHeight = 720

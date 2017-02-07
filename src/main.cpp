@@ -32,12 +32,13 @@ int main(int argc, char* argv)
 {
 	cout << "-- Ray Tracer Begin\n";
 
-	const int width = 320;
-	const int height = 240;
-	const int bytesPerPixel = 4;
-
 	Config config;
 	config.Load("config.txt");
+
+	int width = atoi(config.GetValue(Config::IMAGE_WIDTH).c_str());
+	int height = atoi(config.GetValue(Config::IMAGE_HEIGHT).c_str());
+	const int bytesPerPixel = 4;
+
 	Renderer renderer(config, width, height, bytesPerPixel);
 
 	StopWatch timer;

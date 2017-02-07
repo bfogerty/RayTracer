@@ -10,11 +10,12 @@ const char* Config::FILTER_SCRIPT = "filterscript";
 const char* Config::OUTPUT_DIRECTORY = "outputdirectory";
 const char* Config::OUTPUT_FILE = "outputfile";
 const char* Config::EXPORTER_TYPE = "exporter";
+const char* Config::IMAGE_WIDTH = "imagewidth";
+const char* Config::IMAGE_HEIGHT = "imageheight";
 
 bool Config::Load(const char* filename)
 {
-	std::string test = " Hello World";
-	test = StringHelper::TrimStartAndEndWhitespace(test);
+	SetupDefaultValues();
 
 	std::string line;
 	std::ifstream file(filename);
@@ -42,9 +43,29 @@ bool Config::Load(const char* filename)
 	}
 	file.close();
 
-	m_ConfigData[RENDER_MODULE] = StringHelper::StringUntilFirstOccurence(m_ConfigData[RENDER_SCRIPT], '.');
+	AddAdditionalInternalValues();
 
 	return true;
+}
+
+void Config::SetupDefaultValues()
+{
+	m_ConfigData[FILTER_TYPE] = "python";
+	m_ConfigData[FILTER_DIRECTORY] = "./scripts";
+	m_ConfigData[RENDER_SCRIPT] = "renderer.py";
+	m_ConfigData[FILTER_SCRIPT] = "filter.py";
+	m_ConfigData[OUTPUT_DIRECTORY] = ".";
+	m_ConfigData[OUTPUT_FILE] = "output.ppm";
+	m_ConfigData[EXPORTER_TYPE] = "ppm";
+	m_ConfigData[IMAGE_WIDTH] = "320";
+	m_ConfigData[IMAGE_HEIGHT] = "240";
+	
+	
+}
+
+void Config::AddAdditionalInternalValues()
+{
+	m_ConfigData[RENDER_MODULE] = StringHelper::StringUntilFirstOccurence(m_ConfigData[RENDER_SCRIPT], '.');
 }
 
 std::string Config::GetValue(string key)

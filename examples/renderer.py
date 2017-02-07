@@ -39,8 +39,7 @@ def RenderJob(pixels, startX, startY, endX, endY, imageWidth, imageHeight, bytes
 			pixels[aIndex] = outputColor.GetValues()[3];
 
 def Render(pixels, width, height, bytesPerPixel):
-
-	cpuCoreCount = 1;
+	cpuCoreCount = 6;
 
 	jobs = [];
 	for i in range(cpuCoreCount):

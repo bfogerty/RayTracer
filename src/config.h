@@ -22,8 +22,14 @@ public:
 	static const char* OUTPUT_DIRECTORY;
 	static const char* OUTPUT_FILE;
 	static const char* EXPORTER_TYPE;
+	static const char* IMAGE_WIDTH;
+	static const char* IMAGE_HEIGHT;
 
 private:
+
+	void SetupDefaultValues();
+	void AddAdditionalInternalValues();
+
 	typedef map<std::string, std::string> ConfigData;
 	ConfigData m_ConfigData;
 };
