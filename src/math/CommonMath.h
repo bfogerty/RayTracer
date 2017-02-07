@@ -1,7 +1,7 @@
-#ifndef __CommonMath__
-#define __CommonMath__
+#ifndef __COMMON_MATH__
+#define __COMMON_MATH__
 
-float clamp(float value, float min, float max)
+inline float clamp(float value, float min, float max)
 {
 	if (value < min)
 	{
@@ -15,7 +15,7 @@ float clamp(float value, float min, float max)
 	return value;
 }
 
-float clamp01(float value)
+inline float clamp01(float value)
 {
 	return clamp(value, 0.000f, 1.0f);
 }

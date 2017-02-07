@@ -25,6 +25,9 @@ def clamp01(x):
 
 	return x;
 
+def Test():
+	print("Hello World!\n");
+
 def DoFilter(x, y, width, height):
 	aspectRatio = float(width) / float(height);
 	u = (float(x) / width) * 2.0 - 1.0;
@@ -46,8 +49,8 @@ def DoFilter(x, y, width, height):
 
 	t = clamp01(t);
 
-	r = clamp01(t*8.0);
+	r = clamp01(t*2.0);
 	g = clamp01(t*4.0);
-	b = clamp01(t*2.0);
+	b = clamp01(t*8.0);
 
 	return (r,g,b, 1.0);

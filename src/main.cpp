@@ -2,13 +2,13 @@
 #include <math.h>
 #include <algorithm>
 #include <thread>
+#include "config.h"
 #include "renderer/renderer.h"
 #include "math/CommonMath.h"
 #include "math/vec2.h"
 #include "color/color.h"
 #include "time/StopWatch.h"
 #include "export/PPMExporter.h"
-#include "filter/Python/PythonFilter.h"
 
 using namespace std;
 
@@ -32,27 +32,28 @@ int main(int argc, char* argv)
 {
 	cout << "-- Ray Tracer Begin\n";
 
-	const int width = 1080;
-	const int height = 720;
+	const int width = 320;
+	const int height = 240;
 	const int bytesPerPixel = 4;
 
-
-	PythonFilter pythonFilter;
-	Renderer renderer(&pythonFilter, width, height, bytesPerPixel);
+	Config config;
+	config.Load("config.txt");
+	Renderer renderer(config, width, height, bytesPerPixel);
 
 	StopWatch timer;
 	timer.Start();
 	renderer.Render();
 	float elapsedTimeInMS = timer.Stop();
 
-	PPMExporter::Export( "test2.ppm", width, height, bytesPerPixel, renderer.GetPixels());
+	std::string outputFilename = config.GetValue(Config::OUTPUT_DIRECTORY) + "\\" + config.GetValue(Config::OUTPUT_FILE);
+	PPMExporter::Export(outputFilename.c_str(), width, height, bytesPerPixel, renderer.GetPixels());
 
 	cout << "-- Ray Tracer End \n";
 	cout << "STATS\n";
 	cout << "Render Time: " << elapsedTimeInMS << " ms\n";
 	cout << "FPS: " << 1000.0f / elapsedTimeInMS << "\n";
 
-	ShellExecute(NULL, "open", "test2.ppm", NULL, NULL, SW_SHOW);
+	ShellExecute(NULL, "open", outputFilename.c_str(), NULL, NULL, SW_SHOW);
 
 	return 0;
 }

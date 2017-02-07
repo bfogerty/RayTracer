@@ -1,9 +1,11 @@
 #include "renderer.h"
 #include <thread>
 #include <external/python/Python.h>
+#include "utilities/StringHelper.h"
 
-Renderer::Renderer(SoftwareFilter* filter, int width, int height, int bytesPerPixel) 
-	: m_Filter(filter)
+Renderer::Renderer(Config& config, int width, int height, int bytesPerPixel) 
+	: m_Config(config)
+	, m_Filter(nullptr)
 	, m_Width(width)
 	, m_Height(height)
 	, m_BytesPerPixel(bytesPerPixel)
@@ -11,7 +13,16 @@ Renderer::Renderer(SoftwareFilter* filter, int width, int height, int bytesPerPi
 	, m_Pixels(0)
 {
 	m_Pixels = new float[width * height * bytesPerPixel];
-	m_Filter->Initialize();
+
+	if (m_Config.GetValue(Config::FILTER_TYPE) == "python")
+	{
+		m_Filter = new PythonFilter();
+	}
+
+	if (m_Filter != nullptr)
+	{
+		m_Filter->Initialize(m_Config);
+	}
 }
 
 void Render_Thread(SoftwareFilter* filter, int* jobsCompleted, int startingX, int startingY, int endingX, int endingY, int width, int height, int bytesPerPixel, float* pixels)

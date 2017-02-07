@@ -1,13 +1,19 @@
 #include "PythonFilter.h"
 
-void PythonFilter::Initialize()
+void PythonFilter::Initialize(Config &config)
 {
+	m_Config = config;
+
 	Py_Initialize();
 
 	PyImport_ImportModule("sys");
 	PyImport_ImportModule("numpy");
 	PyImport_ImportModule("threading");
-	PySys_SetPath(L".");
+
+	std::string ansiDirectory = m_Config.GetValue(Config::FILTER_DIRECTORY);
+	std::wstring directory = std::wstring(ansiDirectory.begin(), ansiDirectory.end());
+
+	PySys_SetPath(directory.c_str());
 
 	m_ModuleName = PyUnicode_FromString("filter");
 	m_PluginModule = PyImport_Import(m_ModuleName);
@@ -19,22 +25,15 @@ void PythonFilter::Initialize()
 
 void PythonFilter::CreateMainRenderMethod()
 {
-
+	std::string renderModuleName = m_Config.GetValue(Config::RENDER_MODULE);
+	PyObject* rendererName = PyUnicode_FromString(renderModuleName.c_str());
+	PyObject* rendererModule = PyImport_Import(rendererName);
+	PyErr_Print();
+	m_RenderFunc = PyObject_GetAttrString(rendererModule, "Render");
 }
 
 void PythonFilter::Render(float *pixels, int width, int height, int bytesPerPixel)
 {
-	int d = width / 5;
-
-	//FILE* file = fopen("renderer.py", "r");
-	//PyRun_SimpleFile(file, "renderer.py");
-	//fclose(file);
-
-	PyObject* rendererName = PyUnicode_FromString("renderer");
-	PyObject* rendererModule = PyImport_Import(rendererName);
-	PyErr_Print();
-	m_RenderFunc = PyObject_GetAttrString(rendererModule, "Render");
-	
 	int count = width*height*bytesPerPixel;
 	PyObject *l = PyList_New(count);
 	for (size_t i = 0; i < count; i++) {
@@ -52,7 +51,10 @@ void PythonFilter::Render(float *pixels, int width, int height, int bytesPerPixe
 	for (int i = 0; i < listSize; ++i)
 	{
 		PyObject* value = PyList_GetItem(result, i);
-		pixels[i] = PyFloat_AsDouble(value);
+		// Ensure that we clamp the final values in a 
+		// range between 0.0 and 1.0 so we don't encounter
+		// strange color artifacts.
+		pixels[i] = clamp01(PyFloat_AsDouble(value));
 	}
 
 }

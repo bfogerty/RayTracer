@@ -1,0 +1,7 @@
+FilterType = python
+FilterDirectory = "C:\Users\bfogerty\Documents\development\RayTracer\RayTracer\examples"
+RenderScript = renderer.py
+FilterScript = Filter.py
+OutputDirectory = "C:\Users\bfogerty\Documents\development\RayTracer\RayTracer\output"
+OutputFile = test.ppm
+Exporter = ppm

@@ -12,6 +12,7 @@ set(RENDERER_SRC src/renderer)
 set(EXPORT_SRC src/export)
 set(PYTHON_SRC src/external/python)
 set(FILTER_SRC src/filter)
+set(UTILITIES_SRC src/utilities)
 
 include_directories(
     "${SRC}"
@@ -68,6 +69,15 @@ file(GLOB filter_src
     "${FILTER_SRC}/python/*.c"
 )
 
+file(GLOB utilities_src
+    "${UTILITIES_SRC}/*.h"
+    "${UTILITIES_SRC}/*.cpp"
+    "${UTILITIES_SRC}/*.c"
+    "${UTILITIES_SRC}/python/*.h"
+    "${UTILITIES_SRC}/python/*.cpp"
+    "${UTILITIES_SRC}/python/*.c"
+)
+
 source_group("src" FILES ${main_src})
 source_group("color" FILES ${color_src})
 source_group("math" FILES ${math_src})
@@ -76,6 +86,7 @@ source_group("renderer" FILES ${renderer_src})
 source_group("export" FILES ${export_src})
 source_group("python" FILES ${python_src})
 source_group("filter" FILES ${filter_src})
+source_group("utilities" FILES ${utilities_src})
 
 list(SORT main_src)
 list(SORT color_src)
@@ -85,8 +96,9 @@ list(SORT renderer_src)
 list(SORT export_src)
 list(SORT python_src)
 list(SORT filter_src)
+list(SORT utilities_src)
 
 link_directories(src/external/python/lib/)
 
 # add the executable
-add_executable(RayTracer ${main_src} ${color_src} ${math_src} ${time_src} ${renderer_src} ${export_src} ${python_src} ${filter_src})
+add_executable(RayTracer ${main_src} ${color_src} ${math_src} ${time_src} ${renderer_src} ${export_src} ${python_src} ${filter_src} ${utilities_src})
